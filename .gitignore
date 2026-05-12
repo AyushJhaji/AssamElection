@@ -1,0 +1,30 @@
+# Secrets — NEVER commit
+.env
+
+# Python artefacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Pipeline outputs (regenerated on each run)
+outputs/
+cache/
+
+# Trained models (large binary — regenerate with main.py)
+models/*.pkl
+
+# Logs
+*.log
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
