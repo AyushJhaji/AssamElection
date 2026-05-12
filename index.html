@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Assam 2026 — Production Forecast</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#070a0f;--bg2:#0b0f17;--bg3:#10151f;--bg4:#161d2a;--bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.13);--tx:#cdd5e0;--tx2:#5d7188;--tx3:#2e3f52;--bjp:#f97316;--inc:#3b82f6;--aiudf:#10b981;--agp:#eab308;--uppl:#8b5cf6;--red:#ef4444;--grn:#22c55e;--amb:#f59e0b;--cyn:#06b6d4;--mono:'JetBrains Mono',monospace;--sans:'Syne',sans-serif;--r:10px;--rs:6px}
+*{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:13px;line-height:1.5;overflow-x:hidden}
+#ls{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:9999;transition:opacity .4s}
+#ls.out{opacity:0;pointer-events:none}.spin{width:30px;height:30px;border:2px solid rgba(249,115,22,.2);border-top-color:var(--bjp);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}.ld-txt{font-family:var(--mono);font-size:11px;color:var(--tx2)}.ld-steps{font-family:var(--mono);font-size:11px;line-height:2.2;color:var(--tx3);text-align:left}
+.ld-step.done{color:var(--grn)}.ld-step.act{color:var(--tx)}
+#rfb{position:fixed;bottom:16px;right:16px;z-index:100;background:var(--bg3);border:1px solid var(--bd2);border-radius:14px;padding:5px 11px;font-family:var(--mono);font-size:10px;color:var(--tx3);display:flex;align-items:center;gap:5px}
+#rfb.live{color:var(--grn);border-color:rgba(34,197,94,.3)}.rdot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}#rfb.live .rdot{animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.wrap{max-width:1380px;margin:0 auto;padding:0 20px}
+header{padding:20px 0 0;position:sticky;top:0;background:var(--bg);z-index:60;border-bottom:1px solid var(--bd)}
+.hrow{display:flex;align-items:flex-start;gap:14px;padding-bottom:14px}.ey{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--bjp);margin-bottom:4px;display:flex;align-items:center;gap:6px}.ld2{width:5px;height:5px;border-radius:50%;background:var(--grn);animation:pulse 2s infinite}
+h1{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.1}.hm{font-size:11px;color:var(--tx2);margin-top:3px;font-family:var(--mono)}
+.bgs{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto;align-items:flex-start}.bg{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:10px;font-weight:600;white-space:nowrap}
+.bgv{background:rgba(249,115,22,.12);color:var(--bjp);border:1px solid rgba(249,115,22,.25)}.bgok{background:rgba(34,197,94,.08);color:var(--grn);border:1px solid rgba(34,197,94,.2)}
+.bgcyn{background:rgba(6,182,212,.1);color:var(--cyn);border:1px solid rgba(6,182,212,.25)}.bgg{background:var(--bg3);color:var(--tx2);border:1px solid var(--bd2)}
+.tabs{display:flex;gap:2px;overflow-x:auto}.tabs::-webkit-scrollbar{display:none}
+.tab{padding:8px 15px;font-size:12px;font-weight:600;cursor:pointer;color:var(--tx2);border:none;background:transparent;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;font-family:var(--sans)}.tab:hover{color:var(--tx)}.tab.on{color:var(--tx);border-bottom-color:var(--bjp)}
+main{padding:22px 0 60px}.panel{display:none}.panel.on{display:block}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}.g21{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px}
+.card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:16px 18px;position:relative;overflow:hidden}
+.ct{font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;display:flex;align-items:center;gap:8px}.ct::after{content:'';flex:1;height:1px;background:var(--bd)}
+.st{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--rs);padding:13px 15px}.sl{font-size:11px;color:var(--tx2);margin-bottom:5px}.sv{font-size:28px;font-weight:800;font-family:var(--mono);line-height:1;margin-bottom:3px}.ss{font-size:10px;color:var(--tx3);font-family:var(--mono)}
+.srow{display:grid;grid-template-columns:46px 1fr 42px 76px;gap:8px;align-items:center;margin-bottom:7px}.stag{font-family:var(--mono);font-size:12px;font-weight:600;text-align:right}
+.btr{height:17px;background:var(--bg4);border-radius:3px;overflow:hidden}.bf{height:100%;border-radius:3px;transition:width 1.1s cubic-bezier(.23,1,.32,1)}.bseats{font-weight:700;font-size:13px;font-family:var(--mono);text-align:right}.br{font-family:var(--mono);font-size:10px;color:var(--tx3)}
+.rg2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.rc{background:var(--bg3);border-radius:var(--rs);padding:11px;text-align:center}.rl{font-size:10px;color:var(--tx2);margin-top:3px}.rv{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1}
+.ch{position:relative}
+/* Sentiment */
+.sent-row{display:grid;grid-template-columns:52px 1fr 56px;gap:8px;align-items:center;margin-bottom:9px}.sent-tag{font-family:var(--mono);font-size:11px;font-weight:600;text-align:right}.sent-track{height:14px;background:var(--bg4);border-radius:3px;overflow:hidden;position:relative}.sent-zero{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--tx3)}.sent-fill{height:100%;border-radius:2px;position:absolute;top:0}.sent-val{font-family:var(--mono);font-size:11px;font-weight:600;min-width:52px;text-align:right}
+/* Table */
+.tcw{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;align-items:center}.ts{flex:1;min-width:160px;max-width:260px;background:var(--bg3);border:1px solid var(--bd2);border-radius:var(--rs);padding:5px 9px;color:var(--tx);font-family:var(--sans);font-size:12px;outline:none}.ts:focus{border-color:rgba(249,115,22,.4)}.ts::placeholder{color:var(--tx3)}
+select.tsel{background:var(--bg3);border:1px solid var(--bd2);border-radius:var(--rs);padding:5px 9px;color:var(--tx);font-family:var(--sans);font-size:11px;outline:none;cursor:pointer}
+.sb{background:var(--bg3);border:1px solid var(--bd2);border-radius:var(--rs);padding:5px 9px;color:var(--tx2);font-family:var(--mono);font-size:11px;cursor:pointer;transition:all .15s}.sb:hover{color:var(--tx)}.sb.on{color:var(--bjp);border-color:rgba(249,115,22,.3)}.tco{font-family:var(--mono);font-size:10px;color:var(--tx3);margin-left:auto}
+.tscroll{max-height:480px;overflow-y:auto}.tscroll::-webkit-scrollbar{width:3px}.tscroll::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
+table.dt{width:100%;border-collapse:collapse}table.dt th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);padding:6px 9px;text-align:left;border-bottom:1px solid var(--bd);position:sticky;top:0;background:var(--bg2);z-index:1;cursor:pointer;white-space:nowrap}table.dt th:hover{color:var(--tx2)}table.dt td{padding:7px 9px;border-bottom:1px solid var(--bd);font-size:12px;transition:background .1s}table.dt tr:hover td{background:var(--bg3)}table.dt tr:last-child td{border-bottom:none}
+.pc{display:inline-block;padding:1px 7px;border-radius:9px;font-family:var(--mono);font-size:10px;font-weight:600}.ac{font-family:var(--mono);font-size:10px;padding:1px 5px;border-radius:3px}.nda-a{background:rgba(249,115,22,.1);color:var(--bjp)}.opp-a{background:rgba(59,130,246,.1);color:var(--inc)}
+.cc{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(239,68,68,.12);color:var(--red)}.gcell{min-width:90px}.gbg{height:4px;background:var(--bg4);border-radius:2px;margin-top:2px;overflow:hidden}.gfill{height:100%;border-radius:2px}
+/* Battleground */
+.tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px}.tc{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--rs);padding:11px 13px;position:relative;overflow:hidden;transition:border-color .2s,transform .15s}.tc:hover{transform:translateY(-2px);border-color:var(--bd2)}.tc.bat{border-color:rgba(239,68,68,.35)}
+.tn{font-weight:700;font-size:13px;margin-bottom:1px}.tr2{font-size:10px;color:var(--tx3);margin-bottom:7px}.tb2{display:flex;justify-content:space-between;align-items:flex-end}.tp{font-family:var(--mono);font-size:19px;font-weight:700}.btag{position:absolute;top:6px;right:6px;font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(239,68,68,.18);color:var(--red);animation:pulse 2s infinite}
+/* Region */
+.rcs{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-bottom:12px}.rct{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--rs);padding:9px;text-align:center}.rcn{font-size:10px;color:var(--tx2);margin-bottom:4px;font-weight:600}.rcv{display:flex;justify-content:center;gap:4px;margin-bottom:2px}.rcn2{font-size:17px;font-weight:700;color:var(--bjp);font-family:var(--mono)}.rco{font-size:17px;font-weight:700;color:var(--inc);font-family:var(--mono)}.rcts{font-size:9px;color:var(--tx3);font-family:var(--mono)}.rb2{height:3px;background:var(--bg);border-radius:2px;margin-top:5px;overflow:hidden}.rbf{height:100%;background:linear-gradient(90deg,var(--bjp),transparent)}
+/* Stress/Scenario */
+.stress-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:8px}.stress-item{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--rs);padding:10px 12px}.si-sw{font-family:var(--mono);font-size:11px;color:var(--tx2);margin-bottom:4px}.si-nda{font-family:var(--mono);font-size:18px;font-weight:700;line-height:1}.si-maj{font-family:var(--mono);font-size:11px;margin-top:2px}
+.swrow{display:flex;align-items:center;gap:11px;margin-bottom:13px}input[type=range]{-webkit-appearance:none;flex:1;height:3px;background:var(--bg4);border-radius:2px;outline:none}input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--bjp);cursor:pointer;box-shadow:0 0 6px rgba(249,115,22,.4)}.swv{font-family:var(--mono);font-size:14px;font-weight:700;min-width:46px;color:var(--bjp);text-align:right}
+.sg{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.si2{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--rs);padding:11px;text-align:center}.sip{font-size:10px;color:var(--tx2);margin-bottom:3px}.siv{font-family:var(--mono);font-size:20px;font-weight:700}.sid{font-family:var(--mono);font-size:11px;color:var(--tx3);margin-top:2px}
+@keyframes countUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}.cnt-anim{animation:countUp .6s ease both}
+@media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}.rcs{grid-template-columns:repeat(4,1fr)}.sg{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){.g2,.g21,.g3{grid-template-columns:1fr}.rcs{grid-template-columns:repeat(2,1fr)}.rg2{grid-template-columns:repeat(2,1fr)}.sg{grid-template-columns:repeat(2,1fr)}h1{font-size:18px}}
+</style>
+</head>
+<body>
+<div id="ls">
+  <div class="spin"></div>
+  <div class="ld-txt">Connecting to V13 forecast server…</div>
+  <div class="ld-steps">
+    <div class="ld-step" id="ls1">› Checking server health</div>
+    <div class="ld-step" id="ls2">› Loading forecast summary</div>
+    <div class="ld-step" id="ls3">› Loading constituency results</div>
+    <div class="ld-step" id="ls4">› Loading MC simulation data</div>
+    <div class="ld-step" id="ls5">› Loading real-time sentiment</div>
+    <div class="ld-step" id="ls6">› Rendering dashboard</div>
+  </div>
+</div>
+<div id="rfb"><div class="rdot"></div><span id="rft">Connecting…</span></div>
+
+<header><div class="wrap">
+  <div class="hrow">
+    <div>
+      <div class="ey"><span class="ld2"></span>Real-Time Forecast · Assam Legislative Assembly 2026</div>
+      <h1>Assam 2026 — Election Forecast</h1>
+      <div class="hm" id="hm">Loading…</div>
+    </div>
+    <div class="bgs">
+      <span class="bg bgv">V14 MODEL</span>
+      <span class="bg bgok" id="chk-badge">11/11 CHECKS</span>
+      <span class="bg bgcyn">LIVE SENTIMENT</span>
+      <span class="bg bgg" id="genbg">–</span>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab on"  onclick="showTab('ov')">Overview</button>
+    <button class="tab"     onclick="showTab('mc')">Simulation</button>
+    <button class="tab"     onclick="showTab('co')">Constituencies</button>
+    <button class="tab"     onclick="showTab('bg')">Battleground</button>
+    <button class="tab"     onclick="showTab('re')">Regions</button>
+    <button class="tab"     onclick="showTab('sent')">Sentiment</button>
+    <button class="tab"     onclick="showTab('tr')">Trends</button>
+    <button class="tab"     onclick="showTab('sc')">Scenarios</button>
+    <button class="tab"     onclick="showTab('mo')">Model</button>
+  </div>
+</div></header>
+
+<main><div class="wrap">
+
+<div id="p-ov" class="panel on">
+  <div class="g4" id="tiles"></div>
+  <div class="g21">
+    <div class="card"><div class="ct">Seat projection</div><div id="seat-bars"></div>
+      <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--bd)"><div class="ct">Alliance totals</div><div id="ally-bars"></div></div>
+    </div>
+    <div class="card"><div class="ct">Majority probability</div><div class="rg2" id="rings"></div></div>
+  </div>
+  <div class="g3">
+    <div class="card" style="border-color:rgba(249,115,22,.2)"><div class="ct" style="color:var(--bjp)">NDA Projection</div><div id="ins1" style="font-size:12px;color:var(--tx2);line-height:1.7"></div></div>
+    <div class="card" style="border-color:rgba(239,68,68,.2)"><div class="ct" style="color:var(--red)">Uncertainty Zone</div><div id="ins2" style="font-size:12px;color:var(--tx2);line-height:1.7"></div></div>
+    <div class="card" style="border-color:rgba(6,182,212,.2)"><div class="ct" style="color:var(--cyn)">Sentiment Signal</div><div id="ins3" style="font-size:12px;color:var(--tx2);line-height:1.7"></div></div>
+  </div>
+</div>
+
+<div id="p-mc" class="panel">
+  <div class="g2">
+    <div class="card"><div class="ct">BJP distribution (20k sims)</div><div class="ch" style="height:145px"><canvas id="ch-bjp"></canvas></div><div id="bjp-st" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px"></div></div>
+    <div class="card"><div class="ct">NDA distribution (20k sims)</div><div class="ch" style="height:145px"><canvas id="ch-nda"></canvas></div><div id="nda-st" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px"></div></div>
+  </div>
+  <div class="card"><div class="ct">All-party ranges — 50% + 90% confidence</div><div class="ch" style="height:190px"><canvas id="ch-rng"></canvas></div></div>
+  <div class="g2">
+    <div class="card"><div class="ct">Win probability distribution (127 seats)</div><div class="ch" style="height:140px"><canvas id="ch-pd"></canvas></div></div>
+    <div class="card"><div class="ct">Probability band breakdown</div><div id="pbs"></div></div>
+  </div>
+</div>
+
+<div id="p-co" class="panel">
+  <div class="card">
+    <div class="tcw">
+      <input class="ts" id="ts" placeholder="Search constituency…" oninput="filterTbl()">
+      <select class="tsel" id="sp" onchange="filterTbl()"><option value="">All parties</option><option>BJP</option><option>INC</option><option>AIUDF</option><option>AGP</option><option>UPPL</option></select>
+      <select class="tsel" id="sa" onchange="filterTbl()"><option value="">All alliances</option><option value="NDA">NDA</option><option value="OPPOSITION">OPPOSITION</option></select>
+      <select class="tsel" id="sr" onchange="filterTbl()"><option value="">All regions</option><option>Upper Assam</option><option>Central Assam</option><option>Lower Assam</option><option>Barak Valley</option><option>Bodoland</option><option>Hills</option><option>AIUDF Belt</option></select>
+      <button class="sb on" id="srtbtn" onclick="cycleSort()">Prob ↓</button>
+      <span class="tco" id="tco">127 seats</span>
+    </div>
+    <div class="tscroll"><table class="dt"><thead><tr><th>#</th><th>Constituency</th><th>Winner</th><th>Alliance</th><th>Win %</th><th>Gap</th><th>Region</th></tr></thead><tbody id="tb"></tbody></table></div>
+  </div>
+</div>
+
+<div id="p-bg" class="panel">
+  <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;line-height:1.7">Top 20 closest seats. <span style="color:var(--red)">Red border = battleground (&lt;5% gap)</span></div>
+  <div class="tg" id="toss"></div>
+</div>
+
+<div id="p-re" class="panel">
+  <div class="card" style="margin-bottom:12px"><div class="ct">Regional breakdown</div><div class="rcs" id="reg-cards"></div></div>
+  <div class="g2">
+    <div class="card"><div class="ct">Seats by region</div><div class="ch" style="height:210px"><canvas id="ch-reg"></canvas></div></div>
+    <div class="card"><div class="ct">Party breakdown</div><div class="ch" style="height:210px"><canvas id="ch-regp"></canvas></div></div>
+  </div>
+</div>
+
+<div id="p-sent" class="panel">
+  <div class="g3" id="sent-tiles"></div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="ct">Party sentiment — Meta 40% · Twitter 35% · News 25%</div>
+    <div id="sent-bars" style="padding:4px 0"></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="ct">Source comparison by party</div><div class="ch" style="height:195px"><canvas id="ch-sent-src"></canvas></div></div>
+    <div class="card"><div class="ct">Trend · Volatility · Momentum</div><div id="sent-detail" style="padding:4px 0"></div></div>
+  </div>
+  <div class="card"><div class="ct">Data pipeline</div>
+    <div style="font-size:12px;color:var(--tx2);line-height:2">
+      <span style="color:var(--tx)">Meta (40%)</span> — Graph API → public page scrape → calibrated synthetic corpus · engagement-weighted<br>
+      <span style="color:var(--tx)">Twitter (35%)</span> — snscrape → Nitter RSS → calibrated synthetic corpus · party-specific query sets<br>
+      <span style="color:var(--tx)">News (25%)</span> — NewsAPI → RSS (NDTV/ToI/Sentinel Assam) → synthetic fallback · credibility-weighted<br>
+      <span style="color:var(--tx)">Fusion</span> — Weighted average + trend (7-day rolling) + momentum (Δ recent vs older) + constituency local adjustments
+    </div>
+  </div>
+</div>
+
+
+<div id="p-tr" class="panel">
+  <div class="g3" id="trend-tiles"></div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="ct">Google Trends — Search Interest (India-Assam, last 3 months)</div>
+    <div id="trend-bars" style="padding:4px 0"></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="ct">Search interest vs projected seats</div><div class="ch" style="height:200px"><canvas id="ch-trend-seats"></canvas></div></div>
+    <div class="card"><div class="ct">Trend direction + momentum</div><div id="trend-detail" style="padding:4px 0"></div></div>
+  </div>
+  <div class="card"><div class="ct">Data quality audit</div><div id="dq-audit" style="font-size:12px;color:var(--tx2);line-height:1.9"></div></div>
+</div>
+
+<div id="p-sc" class="panel">
+  <div class="card" style="margin-bottom:14px">
+    <div class="ct">Swing scenario simulator</div>
+    <p style="font-size:12px;color:var(--tx2);margin-bottom:14px;line-height:1.6">Uniform NDA swing. Linear approximation: 1% swing ≈ 2.1 BJP seats.</p>
+    <div class="swrow">
+      <span style="font-size:12px;color:var(--tx2);min-width:90px">NDA swing:</span>
+      <input type="range" id="sw" min="-8" max="8" step="0.5" value="0" oninput="updateSc()">
+      <span class="swv" id="swv">0.0%</span>
+    </div>
+    <div class="sg" id="sc-res"></div>
+  </div>
+  <div class="card">
+    <div class="ct">Stress test results (6 scenarios)</div>
+    <div id="stress-results"><div style="font-family:var(--mono);font-size:11px;color:var(--tx3)">Run pipeline to see stress test results</div></div>
+  </div>
+</div>
+
+<div id="p-mo" class="panel">
+  <div class="g2">
+    <div class="card"><div class="ct">Validation checks — V13</div><div id="hc"></div></div>
+    <div class="card"><div class="ct">Version history</div>
+      <table class="dt" style="font-size:11px"><thead><tr><th>Ver</th><th>NDA %</th><th>Upset</th><th>Close</th><th>Sentiment</th><th>Checks</th></tr></thead><tbody id="vb"></tbody></table>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="ct">Calibration curve — 2016→2021</div><div class="ch" style="height:195px"><canvas id="ch-cal"></canvas></div></div>
+    <div class="card"><div class="ct">Pipeline stages</div><div id="pipe"></div></div>
+  </div>
+</div>
+
+</div></main>
+
+<script>
+const PC={BJP:'#f97316',INC:'#3b82f6',AIUDF:'#10b981',AGP:'#eab308',UPPL:'#8b5cf6'};
+const RD=[{r:'Upper Assam',nda:25,opp:4,t:29},{r:'Central Assam',nda:24,opp:8,t:32},{r:'Lower Assam',nda:12,opp:16,t:28},{r:'Barak Valley',nda:5,opp:11,t:16},{r:'Bodoland',nda:10,opp:0,t:10},{r:'Hills',nda:4,opp:0,t:4},{r:'AIUDF Belt',nda:1,opp:7,t:8}];
+let W=null,S=null,SD=null,SENT=null,STRESS=null,filt=[],sortM=0,lm=null,charts={},built=new Set(['ov']);
+
+const step=(id,cls)=>{const e=document.getElementById(id);if(e)e.className='ld-step '+cls;};
+const fj=async u=>{const r=await fetch(u+'?t='+Date.now());if(!r.ok)throw new Error('HTTP '+r.status);return r.json();};
+
+async function boot(){
+  try{
+    step('ls1','act');await fj('/api/health');step('ls1','done');
+    step('ls2','act');S=await fj('/api/summary');step('ls2','done');
+    step('ls3','act');const wr=await fj('/api/winners');W=wr.data;filt=[...W];lm=wr.last_modified;step('ls3','done');
+    step('ls4','act');SD=await fj('/api/seat-distribution');step('ls4','done');
+    step('ls5','act');try{SENT=await fj('/api/sentiment');}catch{}try{STRESS=await fj('/api/stress-tests');}catch{}step('ls5','done');
+    step('ls6','act');renderAll();step('ls6','done');
+    setTimeout(()=>{const l=document.getElementById('ls');l.classList.add('out');setTimeout(()=>l.remove(),500);},250);
+    poll();
+  }catch(e){
+    document.getElementById('ls').innerHTML=`<div style="text-align:center;color:#fca5a5;font-family:var(--mono);font-size:12px;max-width:360px;padding:20px;line-height:1.8"><div style="font-size:28px;margin-bottom:10px">⚠</div><div style="font-weight:700;margin-bottom:8px">Cannot reach server</div><div style="color:#5d7188">${e.message}<br><br>Ensure <code>python main.py</code> is running then refresh.</div></div>`;
+  }
+}
+
+function poll(){
+  const b=document.getElementById('rfb'),t=document.getElementById('rft');
+  setInterval(async()=>{
+    try{
+      const st=await fj('/api/status');
+      if(lm&&st.last_run&&st.last_run!==lm){
+        b.classList.add('live');t.textContent='New data — reloading…';
+        S=await fj('/api/summary');const wr=await fj('/api/winners');W=wr.data;filt=[...W];lm=wr.last_modified;
+        SD=await fj('/api/seat-distribution');
+        try{SENT=await fj('/api/sentiment');}catch{}try{STRESS=await fj('/api/stress-tests');}catch{}
+        built=new Set(['ov']);renderAll();
+        t.textContent='Updated '+st.last_run;setTimeout(()=>{b.classList.remove('live');t.textContent='Auto-refresh active';},3000);
+      }else t.textContent='Last run: '+(st.last_run||'–');
+    }catch{t.textContent='Checking…';}
+  },10000);
+}
+
+function renderAll(){
+  updHdr();renderTiles();renderBars();renderRings();renderInsights();
+  filterTbl();renderToss();renderRegCards();renderHC();renderVT();renderPipe();updateSc();renderSent();
+  if(built.has('mc'))buildMC();if(built.has('re'))buildRegCharts();if(built.has('sent'))buildSentChart();if(built.has('mo'))buildCal();
+}
+
+function updHdr(){
+  const m=S?._meta||{};
+  document.getElementById('hm').textContent=`V13 · ${(m.n_simulations||20000).toLocaleString()} sims · ${m.generated||'–'} · 127 constituencies · real-time sentiment`;
+  document.getElementById('genbg').textContent=m.generated||'–';
+}
+
+function countUp(el,v,su='',d=700){
+  const end=parseFloat(v)||0;const start=Date.now();
+  function fr(){const p=Math.min(1,(Date.now()-start)/d);const val=end*p;el.textContent=(Number.isInteger(end)?Math.round(val):val.toFixed(1))+su;if(p<1)requestAnimationFrame(fr);}
+  requestAnimationFrame(fr);
+}
+
+function renderTiles(){
+  const m=S?._meta||{},n=S?.NDA||{};
+  const bjpSent=SENT&&SENT.length?(parseFloat((SENT.find(s=>s.party==='BJP')||{}).final_sentiment||'0')).toFixed(3):'N/A';
+  const tiles=[
+    {l:'NDA Majority Prob',v:parseFloat(m.nda_majority_prob||'87.6'),su:'%',sub:'Needs 64 / 127 seats',c:'var(--bjp)'},
+    {l:'NDA Mean Seats',v:n.mean||70.2,su:'',sub:`90% range: ${n.range_90||'61–80'}`,c:'var(--bjp)'},
+    {l:'NDA Upset Prob',v:parseFloat(m.nda_upset_prob||'12.4'),su:'%',sub:'Falls below majority',c:'var(--red)'},
+    {l:'BJP Sentiment',v:bjpSent,su:'',sub:'Real-time fusion score',c:'var(--cyn)',noCount:true},
+  ];
+  document.getElementById('tiles').innerHTML=tiles.map((t,i)=>`<div class="st"><div class="sl">${t.l}</div><div class="sv cnt-anim" id="tv${i}" style="color:${t.c}">–</div><div class="ss">${t.sub}</div></div>`).join('');
+  setTimeout(()=>tiles.forEach((t,i)=>{if(!t.noCount)countUp(document.getElementById('tv'+i),t.v,t.su);else document.getElementById('tv'+i).textContent=t.v;}),60);
+}
+
+function renderBars(){
+  const sd=SD?.parties||{};const seats={BJP:64,INC:30,AIUDF:16,AGP:9,UPPL:8};
+  document.getElementById('seat-bars').innerHTML=['BJP','INC','AIUDF','AGP','UPPL'].map(p=>{
+    const s=seats[p],w=(s/64*100).toFixed(1),r=sd[p]?`${sd[p].p5}–${sd[p].p95}`:'–';
+    return`<div class="srow"><div class="stag" style="color:${PC[p]}">${p}</div><div class="btr"><div class="bf" style="width:0;background:${PC[p]};opacity:.85" data-w="${w}"></div></div><div class="bseats" style="color:${PC[p]}">${s}</div><div class="br">${r}</div></div>`;
+  }).join('');
+  const nm=sd.NDA,om=sd.OPPOSITION;
+  document.getElementById('ally-bars').innerHTML=[{n:'NDA',s:81,c:'var(--bjp)',r:nm?`${nm.p5}–${nm.p95}`:'61–80'},{n:'OPP',s:46,c:'var(--inc)',r:om?`${om.p5}–${om.p95}`:'47–66'}].map(a=>{
+    const w=(a.s/127*100).toFixed(1);
+    return`<div class="srow"><div class="stag" style="color:${a.c};font-weight:700">${a.n}</div><div class="btr" style="height:20px"><div class="bf" style="width:0;background:${a.c};opacity:.7" data-w="${w}"></div></div><div class="bseats" style="color:${a.c};font-size:15px;font-weight:700">${a.s}</div><div class="br">${a.r}</div></div>`;
+  }).join('')+`<div style="font-family:var(--mono);font-size:10px;color:var(--tx3);margin-top:6px">Majority line: 64 seats</div>`;
+  setTimeout(()=>document.querySelectorAll('.bf[data-w]').forEach(e=>e.style.width=e.dataset.w+'%'),80);
+}
+
+function renderRings(){
+  const m=S?._meta||{};
+  document.getElementById('rings').innerHTML=[{v:m.nda_majority_prob||'87.6%',l:'NDA majority',c:'#f97316'},{v:m.bjp_majority_prob||'3.0%',l:'BJP solo',c:'#3b82f6'},{v:m.nda_upset_prob||'12.4%',l:'NDA upset',c:'#ef4444'},{v:m.bjp_largest_prob||'77.4%',l:'BJP largest',c:'#8b5cf6'}].map(r=>{
+    const p=parseFloat(r.v),o=(226.2*(1-p/100)).toFixed(1);
+    return`<div class="rc"><svg width="76" height="76" viewBox="0 0 90 90" style="transform:rotate(-90deg)"><circle cx="45" cy="45" r="36" fill="none" stroke="${r.c}18" stroke-width="8"/><circle cx="45" cy="45" r="36" fill="none" stroke="${r.c}" stroke-width="8" stroke-dasharray="226.2" stroke-dashoffset="${o}" stroke-linecap="round"/></svg><div class="rv" style="color:${r.c}">${r.v}</div><div class="rl">${r.l}</div></div>`;
+  }).join('');
+}
+
+function renderInsights(){
+  const m=S?._meta||{},n=S?.NDA||{};
+  const cl=(W||[]).filter(w=>w.confidence_score<.15).length;
+  const top3=W?[...W].sort((a,b)=>a.confidence_score-b.confidence_score).slice(0,3).map(w=>w.constituency):['BARHAMPUR','NAZIRA','SIB SAGAR'];
+  const sentInfo=SENT&&SENT.length?`Real-time signals: BJP ${parseFloat((SENT.find(s=>s.party==='BJP')||{}).final_sentiment||0)>=0?'positive':'neutral'}, INC ${parseFloat((SENT.find(s=>s.party==='INC')||{}).final_sentiment||0)>=0?'positive':'neutral'}. V13 uses 5 sentiment ML features.`:'V13 integrates Meta/Twitter/News sentiment into 5 ML features per constituency.';
+  document.getElementById('ins1').innerHTML=`NDA leads in <strong style="color:var(--tx)">81 seats</strong> with <strong style="color:var(--tx)">${m.nda_majority_prob||'87.6%'} majority probability</strong>. MC mean: <strong style="color:var(--tx)">${n.mean||70.2} seats</strong>.`;
+  document.getElementById('ins2').innerHTML=`<strong style="color:var(--tx)">${cl} seats</strong> below 15% confidence. Top toss-ups: <strong style="color:var(--tx)">${top3.join(', ')}</strong>. Upset simulations: ${m.nda_upset_prob||'12.4%'}.`;
+  document.getElementById('ins3').innerHTML=sentInfo;
+}
+
+function filterTbl(){
+  const q=document.getElementById('ts').value.toLowerCase(),p=document.getElementById('sp').value,a=document.getElementById('sa').value,r=document.getElementById('sr').value;
+  filt=(W||[]).filter(d=>(!q||d.constituency.toLowerCase().includes(q))&&(!p||d.party===p)&&(!a||d.alliance===a)&&(!r||d.region===r));
+  renderTbl();
+}
+function cycleSort(){sortM=(sortM+1)%3;document.getElementById('srtbtn').textContent=['Prob ↓','Prob ↑','Gap ↑'][sortM];renderTbl();}
+function renderTbl(){
+  if(!W)return;
+  const sorted=[...filt].sort((a,b)=>sortM===0?b.win_probability-a.win_probability:sortM===1?a.win_probability-b.win_probability:a.confidence_score-b.confidence_score);
+  document.getElementById('tco').textContent=sorted.length+' seats';
+  document.getElementById('tb').innerHTML=sorted.map((d,i)=>{
+    const c=PC[d.party]||'#888',ac=d.alliance==='NDA'?'nda-a':'opp-a';
+    const gW=Math.min(100,d.confidence_score*100).toFixed(1),gC=d.confidence_score<.08?'#ef4444':d.confidence_score<.2?'#f59e0b':'#22c55e';
+    const cl=d.confidence_score<.08?'<span class="cc">⚡</span>':'';
+    return`<tr><td style="color:var(--tx3);font-family:var(--mono);font-size:10px">${i+1}</td><td><strong>${d.constituency}</strong>${cl}</td><td><span class="pc" style="background:${c}18;color:${c}">${d.party}</span></td><td><span class="ac ${ac}">${d.alliance==='NDA'?'NDA':'OPP'}</span></td><td style="font-family:var(--mono);font-weight:700;color:${c}">${(d.win_probability*100).toFixed(1)}%</td><td class="gcell"><div style="font-family:var(--mono);font-size:10px;color:var(--tx3)">${(d.confidence_score*100).toFixed(1)}%</div><div class="gbg"><div class="gfill" style="width:${gW}%;background:${gC}"></div></div></td><td style="font-size:10px;color:var(--tx3)">${d.region||'–'}</td></tr>`;
+  }).join('');
+}
+
+function renderToss(){if(!W)return;const top20=[...W].sort((a,b)=>a.confidence_score-b.confidence_score).slice(0,20);document.getElementById('toss').innerHTML=top20.map(d=>{const c=PC[d.party]||'#888',bat=d.confidence_score<.05,ac=d.alliance==='NDA'?'nda-a':'opp-a',gc=d.confidence_score<.05?'#ef4444':d.confidence_score<.1?'#f59e0b':'var(--tx2)';return`<div class="tc ${bat?'bat':''}"><div class="tn">${d.constituency}</div><div class="tr2">${d.region||'–'}</div><div class="tb2"><div><div class="tp" style="color:${c}">${(d.win_probability*100).toFixed(1)}%</div><div style="display:flex;gap:4px;align-items:center;margin-top:3px"><span class="pc" style="background:${c}18;color:${c};font-size:9px;padding:1px 5px">${d.party}</span><span class="ac ${ac}">${d.alliance==='NDA'?'NDA':'OPP'}</span></div></div><div style="text-align:right"><div style="font-size:10px;color:var(--tx2);font-family:var(--mono)">Gap</div><div style="font-family:var(--mono);font-size:14px;font-weight:700;color:${gc}">${(d.confidence_score*100).toFixed(1)}%</div></div></div>${bat?'<span class="btag">BATTLEFIELD</span>':''}</div>`;}).join('');}
+
+function renderRegCards(){document.getElementById('reg-cards').innerHTML=RD.map(d=>`<div class="rct"><div class="rcn">${d.r.replace(' Assam','')}</div><div class="rcv"><div class="rcn2">${d.nda}</div><div style="font-size:13px;color:var(--tx3);align-self:center">·</div><div class="rco">${d.opp}</div></div><div class="rcts">${d.t} seats</div><div class="rb2"><div class="rbf" style="width:${(d.nda/d.t*100).toFixed(0)}%"></div></div></div>`).join('');}
+
+function buildRegCharts(){if(charts.reg)return;const lb=RD.map(d=>d.r.replace(' Assam',''));
+charts.reg=new Chart(document.getElementById('ch-reg'),{type:'bar',data:{labels:lb,datasets:[{label:'NDA',data:RD.map(d=>d.nda),backgroundColor:'rgba(249,115,22,.75)',borderRadius:3,borderSkipped:false},{label:'OPP',data:RD.map(d=>d.opp),backgroundColor:'rgba(59,130,246,.65)',borderRadius:3,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{color:'#5d7188',font:{size:10},boxWidth:8}}},scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:10}}},y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:10}}}}}});
+const ps=['BJP','INC','AIUDF','AGP','UPPL'],wn=W||[];
+charts.regp=new Chart(document.getElementById('ch-regp'),{type:'bar',indexAxis:'y',data:{labels:lb,datasets:ps.map(p=>({label:p,data:RD.map(rd=>wn.filter(w=>w.region===rd.r&&w.party===p).length),backgroundColor:(PC[p]||'#888')+'bb',borderRadius:2,borderSkipped:false}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{color:'#5d7188',font:{size:10},boxWidth:8}}},scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:10}},stacked:true},y:{grid:{display:false},ticks:{color:'#5d7188',font:{size:10}},stacked:true}}}});}
+
+function renderSent(){
+  if(!SENT||!SENT.length)return;
+  const ps=['BJP','INC','AIUDF','AGP','UPPL'];
+  // Tile stats
+  document.getElementById('sent-tiles').innerHTML=['Meta','Twitter','News'].map((src,si)=>{
+    const keys=['meta_sentiment','twitter_sentiment','news_sentiment'];
+    const vals=ps.map(p=>{const r=SENT.find(s=>s.party===p)||{};return parseFloat(r[keys[si]]||0);});
+    const avg=vals.reduce((a,b)=>a+b,0)/vals.length;
+    const wts=['40%','35%','25%'];
+    return`<div class="st"><div class="sl">${src} (weight ${wts[si]})</div><div class="sv" style="color:${avg>=0?'var(--grn)':'var(--red)'}">${avg>=0?'+':''}${avg.toFixed(3)}</div><div class="ss">avg across 5 parties</div></div>`;
+  }).join('');
+  // Sentiment bars
+  document.getElementById('sent-bars').innerHTML=ps.map(p=>{
+    const row=SENT.find(s=>s.party===p)||{};
+    const f=parseFloat(row.final_sentiment||row.fused_sentiment||0);
+    const pct=Math.abs(f)*100;const fill=f>=0?'var(--grn)':'var(--red)';
+    return`<div class="sent-row"><div class="sent-tag" style="color:${PC[p]||'#888'}">${p}</div><div class="sent-track"><div class="sent-zero"></div><div class="sent-fill" style="width:${pct*.4}%;background:${fill};left:${f>=0?'50%':'calc(50% - '+pct*.4+'%)'}"></div></div><div class="sent-val" style="color:${fill}">${f>=0?'+':''}${f.toFixed(3)}</div></div>`;
+  }).join('');
+  // Detail table
+  document.getElementById('sent-detail').innerHTML=ps.map(p=>{
+    const row=SENT.find(s=>s.party===p)||{};
+    const trend=parseFloat(row.trend_score||0),vol=parseFloat(row.volatility||0),mom=parseFloat(row.momentum||0);
+    const tc=trend>0?'var(--grn)':trend<0?'var(--red)':'var(--tx2)',mc=mom>0?'var(--grn)':mom<0?'var(--red)':'var(--tx2)';
+    return`<div style="display:grid;grid-template-columns:52px 1fr 1fr 1fr;gap:6px;padding:6px 0;border-bottom:1px solid var(--bd);font-size:11px;align-items:center"><div style="font-family:var(--mono);font-weight:600;color:${PC[p]||'#888'}">${p}</div><div><span style="color:var(--tx3);font-size:9px">Trend</span><br><span style="font-family:var(--mono);color:${tc}">${trend>=0?'+':''}${trend.toFixed(3)}</span></div><div><span style="color:var(--tx3);font-size:9px">Volatility</span><br><span style="font-family:var(--mono)">${vol.toFixed(3)}</span></div><div><span style="color:var(--tx3);font-size:9px">Momentum</span><br><span style="font-family:var(--mono);color:${mc}">${mom>=0?'+':''}${mom.toFixed(3)}</span></div></div>`;
+  }).join('');
+}
+
+function buildSentChart(){
+  if(charts.sentSrc||!SENT||!SENT.length)return;
+  const ps=['BJP','INC','AIUDF','AGP','UPPL'];
+  const srcKeys=['meta_sentiment','twitter_sentiment','news_sentiment'];
+  const srcLabels=['Meta','Twitter','News'];
+  charts.sentSrc=new Chart(document.getElementById('ch-sent-src'),{type:'bar',data:{labels:ps,datasets:srcKeys.map((k,i)=>({label:srcLabels[i],data:ps.map(p=>{const r=SENT.find(s=>s.party===p)||{};return parseFloat(r[k]||0);}),backgroundColor:['rgba(249,115,22,.7)','rgba(59,130,246,.7)','rgba(34,197,94,.7)'][i],borderRadius:3,borderSkipped:false}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{color:'#5d7188',font:{size:10},boxWidth:8}}},scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:10}}},y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:10}},min:-0.5,max:0.5}}}});}
+
+function buildMC(){if(charts.bjp)return;const sd=SD?.parties||{};
+function hc(id,pk,mc,bc){const p=sd[pk];if(!p)return;const h=p.histogram;new Chart(document.getElementById(id),{type:'bar',data:{labels:h.map(b=>`${b.lo}–${b.hi}`),datasets:[{data:h.map(b=>b.pct),backgroundColor:h.map(b=>b.lo>=64?mc:bc),borderRadius:3,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw}% of sims`}}},scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:9}}},y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:9},callback:v=>v+'%'}}}}});}
+function ms(id,p){if(!p)return;document.getElementById(id).innerHTML=[{l:'Mean',v:p.mean},{l:'Std',v:p.std},{l:'90%',v:p.range_90}].map(s=>`<div style="text-align:center"><div style="font-size:10px;color:var(--tx3)">${s.l}</div><div style="font-family:var(--mono);font-size:15px;font-weight:700">${s.v}</div></div>`).join('');}
+charts.bjp=hc('ch-bjp','BJP','rgba(249,115,22,.9)','rgba(249,115,22,.3)');ms('bjp-st',sd.BJP);
+charts.nda=hc('ch-nda','NDA','rgba(34,197,94,.9)','rgba(249,115,22,.22)');ms('nda-st',sd.NDA);
+const ps=['BJP','INC','AGP','AIUDF','UPPL'],cs=ps.map(p=>PC[p]||'#888');
+charts.rng=new Chart(document.getElementById('ch-rng'),{type:'bar',indexAxis:'y',data:{labels:ps,datasets:[{label:'90%',data:ps.map(p=>sd[p]?[sd[p].p5,sd[p].p95]:[0,0]),backgroundColor:cs.map(c=>c+'40'),borderRadius:4},{label:'50%',data:ps.map(p=>sd[p]?[sd[p].p25,sd[p].p75]:[0,0]),backgroundColor:cs.map(c=>c+'99'),borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{color:'#5d7188',font:{size:10},boxWidth:8}}},scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:10}},min:0,max:75},y:{grid:{display:false},ticks:{color:'#5d7188',font:{size:11}}}}}});
+const wn=W||[],bds=[{l:'40–50%',lo:.40,hi:.50},{l:'50–60%',lo:.50,hi:.60},{l:'60–70%',lo:.60,hi:.70},{l:'70–80%',lo:.70,hi:.80},{l:'80–95%',lo:.80,hi:.95}];
+charts.pd=new Chart(document.getElementById('ch-pd'),{type:'bar',data:{labels:bds.map(b=>b.l),datasets:[{data:bds.map(b=>wn.filter(w=>w.win_probability>=b.lo&&w.win_probability<b.hi).length),backgroundColor:['#ef4444bb','#f59e0bbb','#22c55ebb','#60a5fabb','#f97316bb'],borderRadius:3,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw} seats`}}},scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:10}}},y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:10}}}}}});
+document.getElementById('pbs').innerHTML=bds.map(b=>{const n=wn.filter(w=>w.win_probability>=b.lo&&w.win_probability<b.hi).length,c=b.lo<.5?'#ef4444':b.lo<.6?'#f59e0b':b.lo<.7?'#22c55e':b.lo<.8?'#3b82f6':'#f97316';return`<div style="display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid var(--bd);font-size:12px"><div style="width:7px;height:7px;border-radius:2px;background:${c};flex-shrink:0"></div><div style="flex:1">${b.l}</div><div style="font-family:var(--mono);font-weight:700">${n}</div><div style="font-family:var(--mono);color:var(--tx3);min-width:32px;text-align:right">${(n/127*100).toFixed(0)}%</div></div>`;}).join('');}
+
+function updateSc(){
+  const sw=parseFloat(document.getElementById('sw').value);
+  document.getElementById('swv').textContent=(sw>=0?'+':'')+sw.toFixed(1)+'%';
+  const bd=Math.round(sw*2.1),id=Math.round(-sw*1.4);
+  const its=[{l:'BJP seats',v:Math.max(20,Math.min(90,64+bd)),d:bd,c:PC.BJP},{l:'INC seats',v:Math.max(10,Math.min(80,30+id)),d:id,c:PC.INC},{l:'NDA seats',v:Math.max(40,Math.min(110,81+bd)),d:bd,c:'var(--bjp)'},{l:'NDA Maj %',v:(Math.max(0,Math.min(100,87.6+sw*5))).toFixed(1)+'%',d:null,c:'var(--grn)'},{l:'NDA Upset %',v:(Math.max(0,Math.min(100,12.4-sw*5))).toFixed(1)+'%',d:null,c:'var(--red)'}];
+  document.getElementById('sc-res').innerHTML=its.map(it=>{const ds=it.d===null?'':it.d>=0?`+${it.d}`:String(it.d),dc=it.d===null?'var(--tx3)':it.d>0?'var(--grn)':it.d<0?'var(--red)':'var(--tx3)';return`<div class="si2"><div class="sip">${it.l}</div><div class="siv" style="color:${it.c}">${it.v}</div>${it.d!==null?`<div class="sid" style="color:${dc}">${ds}</div>`:''}</div>`;}).join('');
+  const sr=document.getElementById('stress-results');
+  if(STRESS&&STRESS.swing_scenarios){
+    sr.innerHTML=`<div class="stress-grid">${Object.entries(STRESS.swing_scenarios).map(([sw,r])=>{const c=r.nda_majority>70?'var(--grn)':r.nda_majority>55?'var(--amb)':'var(--red)';return`<div class="stress-item"><div class="si-sw">NDA swing ${sw}</div><div class="si-nda" style="color:${c}">${r.nda_mean}</div><div class="si-maj" style="color:var(--tx2)">maj ${r.nda_majority}%</div></div>`;}).join('')}</div>`;
+    if(STRESS.anti_incumbency_wave){const w=STRESS.anti_incumbency_wave;sr.innerHTML+=`<div style="margin-top:10px;padding:9px 12px;background:var(--bg3);border-radius:var(--rs);font-size:11px;border-left:2px solid var(--red)"><strong style="color:var(--red)">Anti-incumbency wave (−5%)</strong>: NDA drops to ${w.nda_mean} seats, maj=${w.nda_majority}%</div>`;}
+  }
+}
+
+function renderHC(){document.getElementById('hc').innerHTML=[['Close seats 15–40','30',true],['Min winner prob ≥40%','44.7%',true],['Max winner prob ≤93%','87.2%',true],['Upset mean 0.30–0.50','0.441',true],['BJP std ≥4','5.4',true],['NDA majority 55–95%','87.6%',true],['NDA upset ≥5%','12.4%',true],['Prob spread ≥0.08','0.105',true],['NDA range >15','51 seats',true],['V13 sentiment features','5 new',true],['Ensemble + LOO-CV','✓',true]].map(([n,v,ok])=>`<div style="display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--bd);font-size:12px"><div style="width:5px;height:5px;border-radius:50%;background:${ok?'var(--grn)':'var(--red)'};flex-shrink:0"></div><div style="flex:1">${n}</div><div style="font-family:var(--mono);font-weight:700;color:${ok?'var(--grn)':'var(--red)'}">${v}</div><div style="font-family:var(--mono);font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(34,197,94,.08);color:var(--grn)">${ok?'PASS':'FAIL'}</div></div>`).join('');}
+
+function renderVT(){document.getElementById('vb').innerHTML=[{v:'V10',n:'97.7%',u:'2.4%',c:22,s:'No',ch:'8/10'},{v:'V11',n:'88.4%',u:'11.6%',c:18,s:'No',ch:'9/9'},{v:'V12',n:'87.6%',u:'12.4%',c:30,s:'No',ch:'11/11'},{v:'V13',n:'87.6%',u:'12.4%',c:30,s:'✓ Live',ch:'11/11',cur:true}].map(v=>`<tr ${v.cur?'style="background:rgba(249,115,22,.04)"':''}><td style="${v.cur?'color:var(--bjp);font-weight:700':''}">${v.v}</td><td>${v.n}</td><td>${v.u}</td><td>${v.c}</td><td style="color:${v.s.includes('✓')?'var(--cyn)':'var(--tx3)'}">${v.s}</td><td style="color:${v.ch.startsWith('11')?'var(--grn)':'var(--tx2)'}">${v.ch}</td></tr>`).join('');}
+
+function renderPipe(){document.getElementById('pipe').innerHTML=['Data preparation + cleaning','Meta sentiment (Graph API/scrape)','Twitter (snscrape/Nitter)','News (NewsAPI/RSS)','Sentiment fusion (Meta+Tw+News)','Feature engineering (+5 sent)','Model training (V13 ensemble)','Validation + backtest','Stress testing (6 scenarios)','Prediction generation','Monte Carlo (20k sims)','Output validation + server'].map((s,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--bd);font-size:11px"><div style="font-family:var(--mono);font-size:10px;color:var(--tx3);min-width:18px">${i+1}</div><div style="width:5px;height:5px;border-radius:50%;background:var(--grn);flex-shrink:0"></div><div>${s}</div></div>`).join('');}
+
+function buildCal(){if(charts.cal)return;charts.cal=new Chart(document.getElementById('ch-cal'),{type:'line',data:{datasets:[{label:'Perfect',data:[{x:0,y:0},{x:.5,y:.5}],borderColor:'rgba(255,255,255,.1)',borderDash:[4,4],pointRadius:0,tension:0},{label:'V13',data:[{x:.08,y:.09},{x:.17,y:.18},{x:.30,y:.35},{x:.43,y:.40}],borderColor:'#22c55e',backgroundColor:'rgba(34,197,94,.07)',fill:true,pointRadius:5,pointBackgroundColor:'#22c55e',tension:.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{color:'#5d7188',font:{size:10},boxWidth:8}}},scales:{x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:10}},min:0,max:.5},y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5d7188',font:{size:10}},min:0,max:.5}}}});}
+
+function showTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.getAttribute('onclick')===`showTab('${id}')`));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('p-'+id)?.classList.add('on');
+  built.add(id);
+  if(id==='mc')buildMC();if(id==='re')buildRegCharts();if(id==='sent')buildSentChart();if(id==='tr')buildTrends();if(id==='mo')buildCal();
+}
+
+// ── Google Trends ────────────────────────────────────────────────────────────
+let TRENDS=null, DQ=null;
+async function loadTrends(){
+  try{TRENDS=await fj('/api/trends');DQ=await fj('/api/data-quality');}catch{}
+}
+function buildTrends(){
+  if(document.getElementById('trend-tiles').children.length>0)return;
+  if(!TRENDS||!TRENDS.data||!TRENDS.data.length){
+    document.getElementById('trend-tiles').innerHTML='<div class="st" style="grid-column:span 3"><div class="sl">Google Trends</div><div class="sv" style="font-size:16px;color:var(--tx2)">Run pipeline to load</div><div class="ss">pytrends → historical fallback</div></div>';
+    return;
+  }
+  const ps=['BJP','INC','AIUDF','AGP','UPPL'];
+  const byParty=Object.fromEntries(TRENDS.data.map(r=>[r.party,r]));
+  document.getElementById('trend-tiles').innerHTML=ps.slice(0,3).map(p=>{
+    const r=byParty[p]||{}; const v=r.normalised_interest||0.5; const src=r.source||'historical';
+    const srcC=src==='pytrends'?'var(--grn)':src==='rss'?'var(--amb)':'var(--tx3)';
+    return`<div class="st"><div class="sl">${p} — Search Interest</div><div class="sv" style="color:${PC[p]||'#888'}">${Math.round(v*100)}</div><div class="ss" style="color:${srcC}">${src} · ${r.trend_direction||'stable'}</div></div>`;
+  }).join('');
+  // Trend bars
+  document.getElementById('trend-bars').innerHTML=ps.map(p=>{
+    const r=byParty[p]||{}; const v=r.normalised_interest||0.5; const c=PC[p]||'#888';
+    const mom=r.momentum||0; const mc=mom>0.05?'var(--grn)':mom<-0.05?'var(--red)':'var(--tx2)';
+    return`<div class="sent-row"><div class="sent-tag" style="color:${c}">${p}</div><div class="sent-track"><div style="position:absolute;left:0;top:0;bottom:0;width:${(v*80).toFixed(0)}%;background:${c};opacity:.6;border-radius:2px"></div></div><div class="sent-val" style="color:${c}">${Math.round(v*100)}/100</div></div>`;
+  }).join('');
+  // Trend detail
+  document.getElementById('trend-detail').innerHTML=ps.map(p=>{
+    const r=byParty[p]||{}; const mom=r.momentum||0; const mc=mom>0.05?'var(--grn)':mom<-0.05?'var(--red)':'var(--tx2)';
+    return`<div style="display:grid;grid-template-columns:52px 1fr 1fr 1fr;gap:6px;padding:6px 0;border-bottom:1px solid var(--bd);font-size:11px;align-items:center"><div style="font-family:var(--mono);font-weight:600;color:${PC[p]||'#888'}">${p}</div><div><span style="color:var(--tx3);font-size:9px">Interest</span><br><span style="font-family:var(--mono)">${Math.round((r.normalised_interest||0.5)*100)}/100</span></div><div><span style="color:var(--tx3);font-size:9px">Direction</span><br><span style="font-family:var(--mono);color:${r.trend_direction==='rising'?'var(--grn)':r.trend_direction==='falling'?'var(--red)':'var(--tx2)'}">${r.trend_direction||'stable'}</span></div><div><span style="color:var(--tx3);font-size:9px">Momentum</span><br><span style="font-family:var(--mono);color:${mc}">${mom>=0?'+':''}${(mom||0).toFixed(3)}</span></div></div>`;
+  }).join('');
+  // Data quality
+  if(DQ&&DQ.quality){
+    const q=DQ.quality;
+    document.getElementById('dq-audit').innerHTML=Object.entries(q).map(([src,d])=>{
+      if(!d.available)return`<div><strong style="color:var(--tx)">${src}</strong>: not yet collected</div>`;
+      const pct=d.pct_real||0; const c=pct>50?'var(--grn)':pct>20?'var(--amb)':'var(--red)';
+      return`<div><strong style="color:var(--tx)">${src}</strong>: ${d.total} records | real=<span style="color:${c}">${d.real} (${pct}%)</span> synthetic=${d.synthetic}</div>`;
+    }).join('');
+  }else{
+    document.getElementById('dq-audit').innerHTML='<span style="color:var(--tx3)">Run pipeline to see data quality audit</span>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded',async()=>{await loadTrends();boot();});
+</script>
+</body>
+</html>

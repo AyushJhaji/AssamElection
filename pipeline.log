@@ -1,0 +1,55 @@
+14:38:34  INFO     | main | Step 1: Load & validate ECI data
+14:38:34  INFO     | src.data.loader |   vote_swing recomputed: 771/1072 (72%)
+14:38:34  INFO     | src.data.loader |   ECI data loaded: 2016=1190 rows/126 seats | 2021=1072 rows/126 seats
+14:38:34  INFO     | main | Step 2: Collect sentiment  (Meta · Twitter · News · Google Trends)
+14:38:34  WARNING  | src.sentiment.fusion |   No sentiment file — using zeros
+14:38:34  INFO     | src.pipeline |   Sentiment: loaded from cache
+14:38:34  INFO     | main | Step 3: Feature engineering  (23 features)
+14:38:35  INFO     | src.features.engineer |   Upset training: 126 constituencies
+14:38:36  INFO     | src.features.engineer |   Upsets: 79/126 = 62.7%
+14:38:37  INFO     | src.pipeline |   Features: 126 training | 127 prediction | V14 cols=['constituency_vol', 'sentiment_score', 'trend_score', 'volatility', 'momentum', 'media_bias', 'search_momentum', 'search_interest', 'gtrends_signal', 'data_quality_score']
+14:38:37  INFO     | main | Step 4: Train model  (overfit guard: threshold=0.10)
+14:41:44  INFO     | src.models.train |   ✓ No overfit: gap=0.093 ≤ 0.1
+14:41:45  INFO     | src.models.train |   Saved upset_model_v14.pkl | AUC=0.812 sent_fi=0.0071
+14:41:47  INFO     | main | Step 5: Backtest  (2016 → 2021)
+14:41:52  INFO     | src.pipeline |   Backtest: seat_acc=60.3% AUC=0.675 Brier=0.0998
+14:41:52  INFO     | main | Step 6: Generate predictions  (2026 constituencies)
+14:41:54  INFO     | src.models.predict |   Base probs: 311 rows, 127 constituencies
+14:41:54  INFO     | src.models.predict |   Winner prob: min=0.43 mean=0.66 max=0.90
+14:42:02  INFO     | main | Step 7: Monte Carlo  (5,000 sims)
+14:42:03  INFO     | src.simulation.monte_carlo |   Table: 127 seats, 35 close (gap<15%)
+14:42:03  INFO     | src.simulation.monte_carlo |   V12 flatten (0.85*P+0.15*0.5): max 0.87→0.82
+14:42:03  INFO     | src.simulation.monte_carlo |   V12 simulation: 5,000 × 127 consts
+14:42:03  INFO     | src.simulation.monte_carlo |   σ_ind=6%  σ_reg=8%  global=22%(σ=3.5%)
+14:43:38  INFO     | main | Step 8: Validation checks
+14:43:38  INFO     | src.validation.backtest |   Validation: PASS (11/11)
+14:43:38  INFO     | main | Step 10: Save pipeline metadata
+14:49:46  INFO     | main | Step 1: Load & validate ECI data
+14:49:48  INFO     | src.data.loader |   vote_swing recomputed: 771/1072 (72%)
+14:49:48  INFO     | src.data.loader |   ECI data loaded: 2016=1190 rows/126 seats | 2021=1072 rows/126 seats
+14:49:48  INFO     | main | Step 2: Collect sentiment  (Meta · Twitter · News · Google Trends)
+14:49:48  INFO     | src.sentiment.collector |   Meta: 100 rows | real=0 (0%) | {'synthetic': 100}
+14:51:20  INFO     | src.sentiment.collector |   Twitter: 125 rows | real=0 (0%) | {'synthetic': 125}
+14:51:24  INFO     | src.sentiment.collector |   News: 75 rows | real=2 (3%) | {'synthetic': 73, 'nenow.in': 2}
+14:51:34  WARNING  | src.sentiment.collector |   GTrends FALLBACK (historical) BJP → interest=69 [install pytrends for real data]
+14:51:35  WARNING  | src.sentiment.collector |   GTrends FALLBACK (historical) INC → interest=11 [install pytrends for real data]
+14:51:36  WARNING  | src.sentiment.collector |   GTrends FALLBACK (historical) AIUDF → interest=22 [install pytrends for real data]
+14:51:37  WARNING  | src.sentiment.collector |   GTrends FALLBACK (historical) AGP → interest=22 [install pytrends for real data]
+14:51:38  WARNING  | src.sentiment.collector |   GTrends FALLBACK (historical) UPPL → interest=38 [install pytrends for real data]
+14:51:38  INFO     | src.sentiment.collector |   GTrends: 5 parties | real=0
+14:51:39  INFO     | src.data.cleaner |   clean: dropped 80 exact duplicates
+14:51:39  INFO     | src.data.cleaner |   clean audit: 20/100 kept | real=0 (0%) | {'synthetic': 20}
+14:51:39  WARNING  | src.data.cleaner |   ⚠ Very low real data (0.0%) — check API connectivity
+14:51:39  INFO     | src.data.cleaner |   clean: dropped 110 exact duplicates
+14:51:39  INFO     | src.data.cleaner |   clean audit: 15/125 kept | real=0 (0%) | {'synthetic': 15}
+14:51:39  WARNING  | src.data.cleaner |   ⚠ Very low real data (0.0%) — check API connectivity
+14:51:39  ERROR    | main | Pipeline error: clean() got an unexpected keyword argument 'near_dedup'
+Traceback (most recent call last):
+  File "c:\Users\hp\OneDrive\Scans\assam-election-forecast-ml\main.py", line 93, in main
+    pipeline.collect_sentiment(skip=args.skip_sentiment)
+  File "C:\Users\hp\OneDrive\Scans\assam-election-forecast-ml\src\pipeline.py", line 88, in collect_sentiment
+    collected.news    = clean(collected.news,    "title",       "source",
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: clean() got an unexpected keyword argument 'near_dedup'
+14:51:44  INFO     | launcher |   Server ready → http://127.0.0.1:8000
+14:51:47  INFO     | launcher |   Browser opened → http://127.0.0.1:8000

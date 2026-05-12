@@ -1,0 +1,66 @@
+{
+  "version": "V14",
+  "all_pass": true,
+  "n_checks": 11,
+  "n_passed": 11,
+  "checks": [
+    {
+      "name": "Close seats (gap<15%): 15\u201340",
+      "passed": true,
+      "value": "30"
+    },
+    {
+      "name": "Min winner prob \u2265 40%",
+      "passed": true,
+      "value": "45.7%"
+    },
+    {
+      "name": "Max winner prob \u2264 93%",
+      "passed": true,
+      "value": "87.2%"
+    },
+    {
+      "name": "Upset prob mean 0.30\u20130.50",
+      "passed": true,
+      "value": "0.487"
+    },
+    {
+      "name": "BJP std dev \u2265 4.0",
+      "passed": true,
+      "value": "5.3"
+    },
+    {
+      "name": "NDA majority 55%\u201395%",
+      "passed": true,
+      "value": "87.5%"
+    },
+    {
+      "name": "NDA upset \u2265 5%",
+      "passed": true,
+      "value": "12.5%"
+    },
+    {
+      "name": "Winner prob spread \u2265 0.08",
+      "passed": true,
+      "value": "0.104"
+    },
+    {
+      "name": "NDA seat range > 15",
+      "passed": true,
+      "value": "46 seats"
+    },
+    {
+      "name": "No party > 95% majority",
+      "passed": true,
+      "value": "checked"
+    },
+    {
+      "name": "No deterministic outcomes",
+      "passed": true,
+      "value": "checked"
+    }
+  ],
+  "backtest_auc": 0.675,
+  "backtest_brier": 0.0998,
+  "backtest_seat_acc": 0.603
+}
