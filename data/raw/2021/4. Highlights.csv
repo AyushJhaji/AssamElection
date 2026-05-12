@@ -1,0 +1,30 @@
+﻿4 - Highlight,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9
+1,No. of Constituencies,,,,,,,,
+,Type Of Constituency,GEN,SC,ST,Total,,,,
+,No Of Constituencies,102,8,16,126,,,,
+2,NO. of Contestants,,,,,,,,
+,NO. of Contestants in a Constituency,1,2,3,4,5.0,6-10,11-15,Above 15
+,NO Of Such CONSTITUENCIES,0,1,6,18,18.0,59,23,1
+,Total Contestants in a Fray,,,,,,,,946
+,Average Contestants Per Constituency,,,,,,,,8
+,Minimum Contestants in a Constituency,,,,,,,,2
+,Maximum Contestants in a Constituency,,,,,,,,19
+3,Electors,Male,Female,Third Gender,Total,,,,
+i.,NO. OF ELECTORS(Including Service Electors),11884877,11551590,397,23436864,,,,
+ii.,No. of Electors Who Voted(Excluding Postal Votes),9698076,9473426,34,19171536,,,,
+iii.,Polling Percentage(Excluding Postal Ballots),81.6,82.01,8.56,81.8,,,,
+4,No. Of valid VOTES(EVM Valid+postat Valid),,,,,,,19003022,
+5,NO. OF VOTES REJECTED (postal),,,,,,,28023,
+6,"NO. OF TEST VOTES,
+REJECTED VOTES DUE TO:
+OTHER REASON AND NOTA VOTES",,,,,,,284801,
+7,NO. OF POLLING STATIONS,,,,,,,33530,
+8,"AVERAGE NO. OF ELECTORS
+PER POLLING STATION",,,,,,,699,
+9,Performance of Contesting Candidates,Male,Female,Third Gender,Total,,,,
+i.,No. Of Contestants,870,76,0,946,,,,
+ii.,Elected,120,6,0,126,,,,
+iii.,Forfeited Deposits,623,57,0,680,,,,
+,,,,,,,,,
+Disclaimer,,,,,,,,,
+"This report is based on Index Cards data made available by concerned Returning Officers on the basis of Statutory data maintained in the forms. In case of any dispute, the data maintained in the Statutory Forms by the concerned Returning Officers shall prevail.",,,,,,,,,
