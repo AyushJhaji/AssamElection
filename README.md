@@ -14,31 +14,31 @@
 ## Dashboard
 
 ### Overview — Seat Projection & Majority Probability
-![Overview tab showing NDA majority probability at 88.8%, seat projection bars for all parties, and probability rings](docs/screenshots/s1.png)
+![Overview tab showing NDA majority probability at 88.8%, seat projection bars for all parties, and probability rings](https://github.com/AyushJhaji/AssamElection/blob/c71118f6375451f7e72c87bf48d393359493fe5f/screenshots/s1.png)
 
 ### Simulation — 20,000 Monte Carlo Runs
-![Simulation tab with BJP mean 53.9 seats and NDA mean 70.5 seats distribution histograms and all-party confidence ranges](docs/screenshots/s2.png)
+![Simulation tab with BJP mean 53.9 seats and NDA mean 70.5 seats distribution histograms and all-party confidence ranges]([docs/screenshots/s2.png](https://github.com/AyushJhaji/AssamElection/blob/c71118f6375451f7e72c87bf48d393359493fe5f/screenshots/s2.png)
 
 ### Constituencies — Full 127-Seat Searchable Table
-![Constituencies tab with filterable table of all 127 seats sorted by win probability with party colours and gap bars](docs/screenshots/s3.png)
+![Constituencies tab with filterable table of all 127 seats sorted by win probability with party colours and gap bars](https://github.com/AyushJhaji/AssamElection/blob/c71118f6375451f7e72c87bf48d393359493fe5f/screenshots/s3.png)
 
 ### Battleground — Top 20 Toss-up Seats
-![Battleground tab showing 20 closest seats including NAZIRA 0.8%, TEOK 1.6%, BARHAMPUR 1.9% with red BATTLEFIELD tags](docs/screenshots/s4.png)
+![Battleground tab showing 20 closest seats including NAZIRA 0.8%, TEOK 1.6%, BARHAMPUR 1.9% with red BATTLEFIELD tags]([docs/screenshots/s4.png](https://github.com/AyushJhaji/AssamElection/blob/c71118f6375451f7e72c87bf48d393359493fe5f/screenshots/s4.png)
 
 ### Regions — 7-Region Breakdown
-![Regions tab with NDA vs OPP breakdown across Upper Assam, Central, Lower, Barak Valley, Bodoland, Hills and AIUDF Belt](docs/screenshots/s5.png)
+![Regions tab with NDA vs OPP breakdown across Upper Assam, Central, Lower, Barak Valley, Bodoland, Hills and AIUDF Belt]([docs/screenshots/s5.png](https://github.com/AyushJhaji/AssamElection/blob/c71118f6375451f7e72c87bf48d393359493fe5f/screenshots/s5.png)
 
 ### Sentiment — Live Multi-Source Fusion
-![Sentiment tab showing BJP +0.433, INC +0.354 fused scores with Meta/Twitter/News source comparison and trend-volatility-momentum table](docs/screenshots/s6.png)
+![Sentiment tab showing BJP +0.433, INC +0.354 fused scores with Meta/Twitter/News source comparison and trend-volatility-momentum table]([docs/screenshots/s6.png)](https://github.com/AyushJhaji/AssamElection/blob/c71118f6375451f7e72c87bf48d393359493fe5f/screenshots/s6.png)
 
 ### Trends — Google Trends Search Interest
-![Trends tab showing BJP 83/100, INC 35/100 Google search interest bars with trend direction and momentum](docs/screenshots/s7.png)
+![Trends tab showing BJP 83/100, INC 35/100 Google search interest bars with trend direction and momentum]([docs/screenshots/s7.png](https://github.com/AyushJhaji/AssamElection/blob/c71118f6375451f7e72c87bf48d393359493fe5f/screenshots/s7.png)
 
 ### Scenarios — Swing Simulator & Stress Tests
-![Scenarios tab with interactive NDA swing slider and 7-scenario stress test grid showing seat outcomes](docs/screenshots/s8.png)
+![Scenarios tab with interactive NDA swing slider and 7-scenario stress test grid showing seat outcomes]([docs/screenshots/s8.png](https://github.com/AyushJhaji/AssamElection/blob/c71118f6375451f7e72c87bf48d393359493fe5f/screenshots/s8.png)
 
 ### Model — Validation Checks & Version History
-![Model tab showing all 11 validation checks passing, version comparison table V10–V13, and calibration curve](docs/screenshots/s9.png)
+![Model tab showing all 11 validation checks passing, version comparison table V10–V13, and calibration curve]([docs/screenshots/s9.png](https://github.com/AyushJhaji/AssamElection/blob/c71118f6375451f7e72c87bf48d393359493fe5f/screenshots/s9.png)
 
 ---
 
